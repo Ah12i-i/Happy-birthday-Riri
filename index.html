@@ -2,40 +2,33 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>كل عام وانتي بخير يا ريري</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- الملفات الصوتية -->
+  <!-- الصوتيات -->
   <audio id="bg-music" src="song.mp3" loop></audio>
   <audio id="chest-sound" src="chest-open.mp3"></audio>
 
-  <div class="main-container">
+  <div class="page-container">
     
-    <!-- القسم الأيمن: العنوان وشخصيات ماينكرافت -->
-    <div class="right-section">
-      <h1 class="main-title">كل عام وانتي بخير ياريري 🥳🩷</h1>
-      <div class="characters-wrapper">
-        <img src="all.png" alt="الشخصيات" class="waving-characters">
-      </div>
+    <!-- العنوان فوق في المنتصف -->
+    <h1 class="main-title">كل عام وانتي بخير ياريري 🥳🩷</h1>
+
+    <!-- الشخصيات في المنتصف ملامسة للعشب -->
+    <div class="characters-box">
+      <img src="all.png" alt="الشخصيات" class="waving-characters">
     </div>
 
-    <!-- القسم الأيسر: الصندوق والرسالة -->
-    <div class="left-section">
-      <div class="chest-box" id="chest-container">
-        
-        <!-- بطاقة الرسالة -->
-        <div class="message-card" id="message-card">
-          <img src="word.png" alt="الرسالة">
-        </div>
-
-        <!-- صورة الصندوق -->
-        <img src="close.png" alt="صندوق مغلق" id="chest-img" class="chest-image">
-        
-        <p class="chest-hint" id="chest-hint">اضغطي على الصندوق ياحلوه 🎁</p>
+    <!-- الصندوق أسفل الشخصيات في المنتصف -->
+    <div class="chest-box" id="chest-container">
+      <div class="message-card" id="message-card">
+        <img src="word.png" alt="الرسالة">
       </div>
+      <img src="close.png" alt="صندوق مغلق" id="chest-img" class="chest-image">
+      <p class="chest-hint" id="chest-hint">اضغطي على الصندوق 🎁</p>
     </div>
 
   </div>
@@ -50,35 +43,31 @@
 
     let isOpened = false;
 
-    // خفض مستوى صوت الموسيقى إلى 50%
+    // خفض صوت أغنية الخلفية إلى 50%
     bgMusic.volume = 0.5;
 
-    // دالة لتشغيل الموسيقى فور الدخول أو عند أول لمسة
+    // دالة لتشغيل الموسيقى فور تحميل الصفحة أو عند أول لمسة للفيلم
     function playAudio() {
       bgMusic.play().then(() => {
         window.removeEventListener('click', playAudio);
         window.removeEventListener('touchstart', playAudio);
       }).catch(err => {
-        console.log("المتصفح حظر التشغيل التلقائي حتى يتم التفاعل مع الشاشة");
+        console.log("في انتظار التفاعل لتشغيل الصوت");
       });
     }
 
-    // محاولة التشغيل فور التحميل واحتياطياً عند التفاعل
+    // تشغيل مباشر فور تحميل الصفحة واحتياطياً عند لمس الشاشة
     window.addEventListener('load', playAudio);
     window.addEventListener('click', playAudio);
     window.addEventListener('touchstart', playAudio);
 
-    // فتح الصندوق وتزامن الصوت والرسالة
+    // فتح الصندوق وتغيير الصورة وإظهار الرسالة
     chestContainer.addEventListener('click', () => {
       if (!isOpened) {
-        // تشغيل صوت الصندوق
         chestSound.currentTime = 0;
         chestSound.play().catch(err => console.log(err));
 
-        // تغيير صورة الصندوق إلى open.png
         chestImg.src = 'open.png';
-
-        // إظهار الرسالة كلمة word.png فوق الصندوق
         messageCard.classList.add('open');
         chestHint.style.opacity = '0';
 

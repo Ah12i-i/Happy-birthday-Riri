@@ -1,4 +1,3 @@
-/* إعادة ضبط الأساسيات */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,100 +16,68 @@ body {
   align-items: center;
 }
 
-/* الحاوية الرئيسية */
-.main-container {
-  width: 95%;
-  max-width: 1300px;
-  height: 90vh;
+/* الترتيب العمودي المتركز في المنتصف */
+.page-container {
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 10px 10px 10px;
   position: relative;
 }
 
-/* القسم الأيمن */
-.right-section {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
-}
-
-/* العنوان بدون أي خلفية أو إطار */
+/* العنوان في أعلى المنتصف */
 .main-title {
   color: #ffffff;
-  font-size: 2.8rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  margin-top: 40px; /* نزول العنوان لأسفل */
-  margin-bottom: 15px;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 105, 180, 0.6);
-}
-
-.characters-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 105, 180, 0.7);
+  margin-top: 15px;
   width: 100%;
 }
 
-/* تكبير حجم الشخصيات مع الحفاظ على الحركة التموجية */
-.waving-characters {
-  max-width: 900px;
-  width: 200%;
-  height: auto;
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.45));
-  animation: floatWave 4s ease-in-out infinite;
-}
-
-/* الحركة التموجية للشخصيات */
-@keyframes floatWave {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-15px) rotate(1.5deg);
-  }
-  50% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-15px) rotate(-1.5deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-}
-
-/* القسم الأيسر والصندوق */
-.left-section {
-  flex: 1;
+/* الشخصيات متمركزة ومستقرة تماماً على خط العشب */
+.characters-box {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 100%;
-  position: relative;
-  padding-bottom: 40px;
+  margin-bottom: -10px;
 }
 
+.waving-characters {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.5));
+  animation: floatWave 4s ease-in-out infinite;
+}
+
+@keyframes floatWave {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+/* قسم الصندوق في الأسفل وسط العشب */
 .chest-box {
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 15px;
+  z-index: 5;
 }
 
 .chest-image {
-  width: 250px;
+  width: 140px;
   height: auto;
   transition: transform 0.2s ease;
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
 }
 
 .chest-box:hover .chest-image {
@@ -118,70 +85,45 @@ body {
 }
 
 .chest-hint {
-  margin-top: 15px;
+  margin-top: 5px;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: bold;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.9);
   transition: opacity 0.3s ease;
 }
 
-/* بطاقة الرسالة بدون أي خلفية أو ظلال بيضاء خافية */
+/* الرسالة المنبثقة من الصندوق متمركزة بالمنتصف */
 .message-card {
   position: absolute;
-  bottom: 80px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%) scale(0.1);
   opacity: 0;
-  background: transparent;
-  padding: 0;
-  box-shadow: none;
-  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;
   z-index: 10;
 }
 
 .message-card img {
-  width: 360px;
-  max-width: 85vw;
-  background: transparent;
+  width: 290px;
+  max-width: 88vw;
   display: block;
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
 }
 
-/* عند فتح الصندوق تستقر الرسالة فوقه */
+/* عند الفتح ترتفع فوق الصندوق */
 .message-card.open {
-  bottom: 170px;
+  bottom: 110px;
   transform: translateX(-50%) scale(1);
   opacity: 1;
 }
 
-/* الاستجابة للجوال والتوجه الرأسي */
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-    justify-content: space-between;
-    height: 95vh;
-  }
-  
-  .main-title {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-  }
-
-  .waving-characters {
-    max-width: 380px;
-  }
-
-  .chest-image {
-    width: 190px;
-  }
-
-  .message-card img {
-    width: 290px;
-  }
-
-  .message-card.open {
-    bottom: 135px;
-  }
+/* تعديل للشاشات الصغيرة */
+@media (max-height: 670px) {
+  .main-title { font-size: 1.5rem; margin-top: 5px; }
+  .waving-characters { max-width: 360px; }
+  .chest-image { width: 110px; }
+  .message-card img { width: 250px; }
+  .message-card.open { bottom: 90px; }
 }

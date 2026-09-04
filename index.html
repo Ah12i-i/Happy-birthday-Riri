@@ -8,21 +8,26 @@
 </head>
 <body>
 
-  <!-- الصوتيات -->
+  <!-- الملفات الصوتية -->
   <audio id="bg-music" src="song.mp3" loop></audio>
   <audio id="chest-sound" src="chest-open.mp3"></audio>
 
+  <!-- زر البدء اللطيف في الشاشة -->
+  <div id="start-overlay" class="start-overlay">
+    <button id="start-btn">اضغطي ياحلوه ✨</button>
+  </div>
+
   <div class="page-container">
     
-    <!-- العنوان فوق في المنتصف -->
-    <h1 class="main-title">كل عام وانتي بخير ياريري 🥳🩷</h1>
+    <!-- العنوان -->
+    <h1 class="main-title">كل عام وانتي بخيير ياحلوه 🥳🩷</h1>
 
-    <!-- الشخصيات في المنتصف ملامسة للعشب -->
+    <!-- الشخصيات -->
     <div class="characters-box">
       <img src="all.png" alt="الشخصيات" class="waving-characters">
     </div>
 
-    <!-- الصندوق أسفل الشخصيات في المنتصف -->
+    <!-- الصندوق -->
     <div class="chest-box" id="chest-container">
       <div class="message-card" id="message-card">
         <img src="word.png" alt="الرسالة">
@@ -36,32 +41,26 @@
   <script>
     const bgMusic = document.getElementById('bg-music');
     const chestSound = document.getElementById('chest-sound');
+    const startOverlay = document.getElementById('start-overlay');
+    const startBtn = document.getElementById('start-btn');
     const chestContainer = document.getElementById('chest-container');
     const chestImg = document.getElementById('chest-img');
     const messageCard = document.getElementById('message-card');
     const chestHint = document.getElementById('chest-hint');
 
     let isOpened = false;
-
-    // خفض صوت أغنية الخلفية إلى 50%
     bgMusic.volume = 0.5;
 
-    // دالة لتشغيل الموسيقى فور تحميل الصفحة أو عند أول لمسة للفيلم
-    function playAudio() {
-      bgMusic.play().then(() => {
-        window.removeEventListener('click', playAudio);
-        window.removeEventListener('touchstart', playAudio);
-      }).catch(err => {
-        console.log("في انتظار التفاعل لتشغيل الصوت");
-      });
-    }
+    // عند الضغط على زر "اضغطي ياحلوه"
+    startBtn.addEventListener('click', () => {
+      bgMusic.play().catch(err => console.log(err));
+      startOverlay.style.opacity = '0';
+      setTimeout(() => {
+        startOverlay.style.display = 'none';
+      }, 400);
+    });
 
-    // تشغيل مباشر فور تحميل الصفحة واحتياطياً عند لمس الشاشة
-    window.addEventListener('load', playAudio);
-    window.addEventListener('click', playAudio);
-    window.addEventListener('touchstart', playAudio);
-
-    // فتح الصندوق وتغيير الصورة وإظهار الرسالة
+    // تفاعل فتح الصندوق
     chestContainer.addEventListener('click', () => {
       if (!isOpened) {
         chestSound.currentTime = 0;

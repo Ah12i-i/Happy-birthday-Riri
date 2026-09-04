@@ -16,42 +16,80 @@ body {
   align-items: center;
 }
 
-/* الترتيب العمودي المتركز في المنتصف */
+/* شاشة الزر عند الدخول */
+.start-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+
+.start-overlay button {
+  padding: 14px 28px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff6b81, #ff4757);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* الحاوية الرئيسية مرتفعة ومضغوطة بدون أي مساحة علوية */
 .page-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 420px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* تجميع المكونات وسط الشاشة تماماً */
   align-items: center;
-  padding: 20px 10px 10px 10px;
+  padding-top: 0;
+  padding-bottom: 0;
   position: relative;
 }
 
-/* العنوان في أعلى المنتصف */
+/* العنوان ملتصق تماماً بالشخصيات بدون مساحة علوية */
 .main-title {
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: bold;
   text-align: center;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 105, 180, 0.7);
-  margin-top: 15px;
+  margin-top: 0;
+  margin-bottom: -10px;
+  z-index: 2;
   width: 100%;
 }
 
-/* الشخصيات متمركزة ومستقرة تماماً على خط العشب */
+/* الشخصيات ملاصقة للعنوان وللصندوق */
 .characters-box {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin-bottom: -10px;
+  margin-bottom: -15px;
+  z-index: 3;
 }
 
 .waving-characters {
   width: 100%;
-  max-width: 440px;
+  max-width: 380px;
   height: auto;
   filter: drop-shadow(0 8px 15px rgba(0,0,0,0.5));
   animation: floatWave 4s ease-in-out infinite;
@@ -59,22 +97,22 @@ body {
 
 @keyframes floatWave {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-4px); }
 }
 
-/* قسم الصندوق في الأسفل وسط العشب */
+/* الصندوق أسفل الشخصيات مباشرة */
 .chest-box {
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   z-index: 5;
 }
 
 .chest-image {
-  width: 140px;
+  width: 120px;
   height: auto;
   transition: transform 0.2s ease;
   filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
@@ -85,18 +123,18 @@ body {
 }
 
 .chest-hint {
-  margin-top: 5px;
+  margin-top: 2px;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: bold;
   text-shadow: 1px 1px 6px rgba(0,0,0,0.9);
   transition: opacity 0.3s ease;
 }
 
-/* الرسالة المنبثقة من الصندوق متمركزة بالمنتصف */
+/* الرسالة المنبثقة من الصندوق */
 .message-card {
   position: absolute;
-  bottom: 50px;
+  bottom: 35px;
   left: 50%;
   transform: translateX(-50%) scale(0.1);
   opacity: 0;
@@ -106,24 +144,23 @@ body {
 }
 
 .message-card img {
-  width: 290px;
-  max-width: 88vw;
+  width: 260px;
+  max-width: 85vw;
   display: block;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
 }
 
-/* عند الفتح ترتفع فوق الصندوق */
 .message-card.open {
-  bottom: 110px;
+  bottom: 90px;
   transform: translateX(-50%) scale(1);
   opacity: 1;
 }
 
-/* تعديل للشاشات الصغيرة */
+/* تجاوب الشاشات الصغيرة */
 @media (max-height: 670px) {
-  .main-title { font-size: 1.5rem; margin-top: 5px; }
-  .waving-characters { max-width: 360px; }
-  .chest-image { width: 110px; }
-  .message-card img { width: 250px; }
-  .message-card.open { bottom: 90px; }
+  .main-title { font-size: 1.4rem; margin-bottom: -15px; }
+  .waving-characters { max-width: 320px; }
+  .chest-image { width: 100px; }
+  .message-card img { width: 220px; }
+  .message-card.open { bottom: 75px; }
 }

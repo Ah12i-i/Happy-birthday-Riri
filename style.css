@@ -1,0 +1,187 @@
+/* إعادة ضبط الأساسيات */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('bg.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* الحاوية الرئيسية */
+.main-container {
+  width: 95%;
+  max-width: 1300px;
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* القسم الأيمن */
+.right-section {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* العنوان بدون أي خلفية أو إطار */
+.main-title {
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-top: 40px; /* نزول العنوان لأسفل */
+  margin-bottom: 15px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 105, 180, 0.6);
+}
+
+.characters-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* تكبير حجم الشخصيات مع الحفاظ على الحركة التموجية */
+.waving-characters {
+  max-width: 900px;
+  width: 200%;
+  height: auto;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.45));
+  animation: floatWave 4s ease-in-out infinite;
+}
+
+/* الحركة التموجية للشخصيات */
+@keyframes floatWave {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-1.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+/* القسم الأيسر والصندوق */
+.left-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.chest-box {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chest-image {
+  width: 250px;
+  height: auto;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.5));
+}
+
+.chest-box:hover .chest-image {
+  transform: scale(1.05);
+}
+
+.chest-hint {
+  margin-top: 15px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+  transition: opacity 0.3s ease;
+}
+
+/* بطاقة الرسالة بدون أي خلفية أو ظلال بيضاء خافية */
+.message-card {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.1);
+  opacity: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.message-card img {
+  width: 360px;
+  max-width: 85vw;
+  background: transparent;
+  display: block;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+}
+
+/* عند فتح الصندوق تستقر الرسالة فوقه */
+.message-card.open {
+  bottom: 170px;
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* الاستجابة للجوال والتوجه الرأسي */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 95vh;
+  }
+  
+  .main-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .waving-characters {
+    max-width: 380px;
+  }
+
+  .chest-image {
+    width: 190px;
+  }
+
+  .message-card img {
+    width: 290px;
+  }
+
+  .message-card.open {
+    bottom: 135px;
+  }
+}
